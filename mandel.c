@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <complex.h>
 #include <math.h>
+#include <omp.h>
 #include "ppm.h"
 
 #define TRSH 2.0
@@ -56,6 +57,7 @@ int main(void)
 
 	double colref = 255.0 / log(ITER);
 
+	#pragma omp parallel for schedule(dynamic)
 	for (int i = 0; i < SIZEX; ++i) {
 		for (int j = 0; j < SIZEY; ++j) {
 			float complex c = cx(i) + cy(j) * I;
